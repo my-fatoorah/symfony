@@ -1,5 +1,5 @@
 {
-    "name": "myfatoorah/symfony",
+    "name": "rsns/symfony",
     "description": "The official MyFatoorah Payment Gateway Symfony Bundle.",
     "type": "symfony-bundle",
     "homepage": "https://myfatoorah.com/",
