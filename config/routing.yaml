@@ -1,0 +1,7 @@
+myfatoorah_create:
+    path: /myfatoorah/create
+    controller: MyFatoorah\Symfony\Controller\Invoice::create
+    
+myfatoorah_callback:
+    path: /myfatoorah/callback
+    controller: MyFatoorah\Symfony\Controller\Invoice::callback

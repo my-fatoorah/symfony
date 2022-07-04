@@ -1,4 +1,0 @@
-index:
-    path: /rs
-    controller: App\Controller\RsController::number
-

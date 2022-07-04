@@ -1,7 +1,20 @@
 {
     "name": "rsns/symfony",
     "description": "The official MyFatoorah Payment Gateway Symfony Bundle.",
+    "version": "2.0.0",
     "type": "symfony-bundle",
+    "license": [
+        "GPL-3.0-only"
+    ],
+    "require": {
+        "myfatoorah/library": "2.0.0",
+        "symfony/framework-bundle": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MyFatoorah\\Symfony\\": "src/"
+        }
+    },
     "homepage": "https://myfatoorah.com/",
     "authors": [
         {
@@ -17,16 +30,5 @@
             "email": "rsaeed@myfatoorah.com",
             "role": "Senior Technical Engineer"
         }
-    ],
-    "license": "GPL-3.0-only",
-    "minimum-stability": "dev",
-    "require": {
-        "myfatoorah/library": "2.0.0",
-        "symfony/framework-bundle": "^5.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "MyFatoorah\\Symfony\\": "src/"
-        }
-    }
+    ]
 }
