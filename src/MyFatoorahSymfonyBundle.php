@@ -26,21 +26,21 @@ class MyFatoorahSymfonyBundle extends Bundle {
 //        return 'myfatoorah_symfony';
 //    }
 
-    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void {
-        // load an XML, PHP or Yaml file
-        $container->import('../config/services.yaml');
-
-        // you can also add or replace parameters and services
-        $container->parameters()
-                ->set('myfatoorah_symfony.phrase', $config['phrase'])
-        ;
-
-        if ($config['scream']) {
-            $container->services()
-                    ->get('myfatoorah_symfony.printer')
-                    ->class(ScreamingPrinter::class)
-            ;
-        }
-    }
+//    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void {
+//        // load an XML, PHP or Yaml file
+//        $container->import('../config/services.yaml');
+//
+//        // you can also add or replace parameters and services
+//        $container->parameters()
+//                ->set('myfatoorah_symfony.phrase', $config['phrase'])
+//        ;
+//
+//        if ($config['scream']) {
+//            $container->services()
+//                    ->get('myfatoorah_symfony.printer')
+//                    ->class(ScreamingPrinter::class)
+//            ;
+//        }
+//    }
 
 }
