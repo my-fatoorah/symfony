@@ -1,12 +1,16 @@
 <?php
 
-namespace MyFatoorah\Symfony\Controller;
+namespace MyFatoorah\SymfonyBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use MyFatoorah\Library\PaymentMyfatoorahApiV2;
 
-class Invoice {
+class InvoiceController extends AbstractController {
 
     public $mfObj;
 
@@ -17,12 +21,11 @@ class Invoice {
     /**
      * create MyFatoorah object
      */
-    public function __construct() {
-//        $apiKey      = 'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL';
-        $apiKey      = 'UZH8ufQHiix-srTtd5-KLguZnsv6Y5tQ1fLWMzpR3CrhxGBViRBtXKa3OuFhC561BjSdWzYZcBWhWerC6gDVvglUV4FbcJrvCboVhtZb2BHgRdmtANu2sc8ouvGWuoPJqpffOfkHoXqdO0tHICxsKGsfVHIUP80iyV-KdJLXoaC6ugdXJoSQpjZguTb2meJyaQeSgQdpKkIGqUk3b3y11QxiYHJDq5P8v3oqgkQ_EpsRTT3NyeAqmC89wwox5JTgZUNpngHaqy5_VvZMylrp-ni_SFCYX-MsO1VMeY1fn_bsMSnzqaBFRBoBdI1JvD03C2cMbIeZ0I53aSl0ZdaoN29uEqafiEkOSk-B5wTHch0Et--y42_5NUncbZxcf82pDuR5uglJyMdITMZY3BywtDQQYlM2QT_CNhYJCmAE-T_1VesgpvW9aP0NxCSqXpbVeNkYNtcjzU3ej9CwzMIpuhGhSwOL_B-lEU_ZxCtnO6Sq5-Xn6ECibsgdjm0Hok6qe0t2euTC8lhsbOExnMuyRu9rehdZc9TGEbEmsFtddDohmXKe3lEYnuzrM--Htu-uFwVhzbUFRXtzkSrUnbEUj7bxafZr7wDCSs-FSP9sShPAXv2s0VHuapqKlrwH1JJ-8OKYwxwYnoMJb0tVwq-abN-LUASBvm9_NVar4JQxkcqClAhp';
-        $countryCode = 'KWT';
-        $isTest      = true;
-
+    public function __construct(ContainerBagInterface $params) {
+error_log('999999999999999999999999999999999999999999999999999999');
+        $apiKey      = $params->get('myfatoorah.apiKey');
+        $countryCode = $params->get('myfatoorah.countryCode');
+        $isTest      = $params->get('myfatoorah.isTest');
         $this->mfObj = new PaymentMyfatoorahApiV2($apiKey, $countryCode, $isTest);
     }
 
@@ -31,6 +34,8 @@ class Invoice {
     /**
      * Create MyFatoorah invoice
      *
+     * @Route("/myfatoorah/create", name="myfatoorah_symfony_create")
+     * 
      * @return JsonResponse
      */
     public function create(): JsonResponse {
@@ -44,7 +49,7 @@ class Invoice {
         } catch (\Exception $e) {
             $response = ['IsSuccess' => 'false', 'Message' => $e->getMessage()];
         }
-        return new JsonResponse($response);
+        return $this->json($response);
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +60,7 @@ class Invoice {
      * @return array
      */
     private function getPayLoadData($orderId = null) {
-        $callbackURL = null; //route('myfatoorah.callback');
+        $callbackURL = 'http:' . $this->generateUrl('myfatoorah_symfony_callback', [], UrlGeneratorInterface::NETWORK_PATH);
 
         return [
             'CustomerName'       => 'FName LName',
@@ -73,9 +78,11 @@ class Invoice {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
-    
+
     /**
      * Get MyFatoorah payment information
+     * 
+     * @Route("/myfatoorah/callback", name="myfatoorah_symfony_callback")
      * 
      * @param Request $request
      * @return JsonResponse
@@ -84,8 +91,8 @@ class Invoice {
         //http://127.0.0.1:8000/myfatoorah/callback?paymentId=100202217186102325
         try {
             $paymentId = $request->query->get('paymentId');
-            $data      = $this->mfObj->getPaymentStatus($paymentId, 'PaymentId');
 
+            $data = $this->mfObj->getPaymentStatus($paymentId, 'PaymentId');
             if ($data->InvoiceStatus == 'Paid') {
                 $msg = 'Invoice is paid.';
             } else if ($data->InvoiceStatus == 'Failed') {
@@ -98,7 +105,7 @@ class Invoice {
         } catch (\Exception $e) {
             $response = ['IsSuccess' => 'false', 'Message' => $e->getMessage()];
         }
-        return new JsonResponse($response);
+        return $this->json($response);
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------

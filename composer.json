@@ -1,5 +1,5 @@
 {
-    "name": "myfatoorah/symfony-bundle",
+    "name": "myfatoorah/SymfonyBundle",
     "description": "The official MyFatoorah Payment Gateway Symfony Bundle.",
     "version": "2.0.0",
     "type": "symfony-bundle",

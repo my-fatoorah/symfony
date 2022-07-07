@@ -1,0 +1,10 @@
+parameters:
+    myfatoorah.apiKey: 'UZH8ufQHiix-srTtd5-KLguZnsv6Y5tQ1fLWMzpR3CrhxGBViRBtXKa3OuFhC561BjSdWzYZcBWhWerC6gDVvglUV4FbcJrvCboVhtZb2BHgRdmtANu2sc8ouvGWuoPJqpffOfkHoXqdO0tHICxsKGsfVHIUP80iyV-KdJLXoaC6ugdXJoSQpjZguTb2meJyaQeSgQdpKkIGqUk3b3y11QxiYHJDq5P8v3oqgkQ_EpsRTT3NyeAqmC89wwox5JTgZUNpngHaqy5_VvZMylrp-ni_SFCYX-MsO1VMeY1fn_bsMSnzqaBFRBoBdI1JvD03C2cMbIeZ0I53aSl0ZdaoN29uEqafiEkOSk-B5wTHch0Et--y42_5NUncbZxcf82pDuR5uglJyMdITMZY3BywtDQQYlM2QT_CNhYJCmAE-T_1VesgpvW9aP0NxCSqXpbVeNkYNtcjzU3ej9CwzMIpuhGhSwOL_B-lEU_ZxCtnO6Sq5-Xn6ECibsgdjm0Hok6qe0t2euTC8lhsbOExnMuyRu9rehdZc9TGEbEmsFtddDohmXKe3lEYnuzrM--Htu-uFwVhzbUFRXtzkSrUnbEUj7bxafZr7wDCSs-FSP9sShPAXv2s0VHuapqKlrwH1JJ-8OKYwxwYnoMJb0tVwq-abN-LUASBvm9_NVar4JQxkcqClAhp'
+    myfatoorah.countryCode: 'KWT'
+
+    # boolean parameters
+    myfatoorah.isTest: true
+    
+services:
+    MyFatoorah\SymfonyBundle\:
+        resource: '../src/'
